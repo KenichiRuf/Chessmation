@@ -1,19 +1,19 @@
-'use client';
+"use client";
 
-import Link from 'next/link';
-import { useState } from 'react';
-import { Button } from '@/components/ui/button';
-import { CircleIcon, Home, LogOut } from 'lucide-react';
+import Link from "next/link";
+import { useState } from "react";
+import { Button } from "@/components/ui/button";
+import { Sparkles, Home, LogOut } from "lucide-react";
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
-} from '@/components/ui/dropdown-menu';
-import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
-import { useUser } from '@/lib/auth';
-import { signOut } from '@/app/(login)/actions';
-import { useRouter } from 'next/navigation';
+} from "@/components/ui/dropdown-menu";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { useUser } from "@/lib/auth";
+import { signOut } from "@/app/(login)/actions";
+import { useRouter } from "next/navigation";
 
 function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -23,33 +23,30 @@ function Header() {
   async function handleSignOut() {
     setUser(null);
     await signOut();
-    router.push('/');
+    router.push("/");
   }
 
   return (
-    <header className="border-b border-gray-200">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex justify-between items-center">
-        <Link href="/" className="flex items-center">
-          <CircleIcon className="h-6 w-6 text-orange-500" />
-          <span className="ml-2 text-xl font-semibold text-gray-900">ACME</span>
+    <header className="bg-[#272727] py-4">
+      <div className="container mx-auto flex justify-between items-center px-4">
+        {/* Logo and Brand Name */}
+        <Link href="/" className="flex items-center gap-2">
+          <Sparkles className="w-6 h-6 text-[#99BC59]" />
+          <span className="text-xl font-bold text-white">Chessmation</span>
         </Link>
+
+        {/* Right Side - User Authentication */}
         <div className="flex items-center space-x-4">
-          <Link
-            href="/pricing"
-            className="text-sm font-medium text-gray-700 hover:text-gray-900"
-          >
-            Pricing
-          </Link>
           {user ? (
             <DropdownMenu open={isMenuOpen} onOpenChange={setIsMenuOpen}>
               <DropdownMenuTrigger>
                 <Avatar className="cursor-pointer size-9">
-                  <AvatarImage alt={user.name || ''} />
+                  <AvatarImage alt={user.name || ""} />
                   <AvatarFallback>
                     {user.email
-                      .split(' ')
+                      .split(" ")
                       .map((n) => n[0])
-                      .join('')}
+                      .join("")}
                   </AvatarFallback>
                 </Avatar>
               </DropdownMenuTrigger>
@@ -73,11 +70,16 @@ function Header() {
           ) : (
             <Button
               asChild
-              className="bg-black hover:bg-gray-800 text-white text-sm px-4 py-2 rounded-full"
+              className="border border-[#99BC59] text-[#99BC59] bg-[#272727] hover:bg-[#333333] text-sm px-4 py-2 rounded-full"
             >
-              <Link href="/sign-up">Sign Up</Link>
+              <Link href="/sign-up">Log In</Link>
             </Button>
           )}
+
+          {/* Add to Chrome Button */}
+          <Button className="bg-[#99BC59] hover:bg-[#8CAF4D] text-white">
+            Add to Chrome
+          </Button>
         </div>
       </div>
     </header>
