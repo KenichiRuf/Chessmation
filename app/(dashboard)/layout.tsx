@@ -14,6 +14,7 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { useUser } from "@/lib/auth";
 import { signOut } from "@/app/(login)/actions";
 import { useRouter } from "next/navigation";
+import { GoogleAnalytics } from '@next/third-parties/google';
 
 function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -86,11 +87,36 @@ function Header() {
   );
 }
 
+function Footer() {
+  return (
+    <footer className="bg-[#272727] py-2 mt-auto">
+      <div className="container mx-auto flex flex-col md:flex-row items-center justify-between p-6">
+        <Link href="/" className="flex items-center gap-2 mb-4 md:mb-0">
+          <Sparkles className="w-6 h-6 text-[#99BC59]" />
+          <span className="text-lg font-bold text-white">Chessmation</span>
+        </Link>
+
+        <nav className="flex gap-6 text-gray-400 text-sm">
+          <Link href="/about" className="hover:text-white">About</Link>
+          <Link href="/contact" className="hover:text-white">Contact</Link>
+          <Link href="/privacy" className="hover:text-white">Privacy</Link>
+        </nav>
+
+        <Button className="bg-[#99BC59] hover:bg-[#8CAF4D] text-white mt-4 md:mt-0">
+          Add to Chrome
+        </Button>
+      </div>
+    </footer>
+  );
+}
+
 export default function Layout({ children }: { children: React.ReactNode }) {
   return (
-    <section className="flex flex-col min-h-screen">
+    <section className="flex flex-col min-h-screen bg-[#272727]">
       <Header />
       {children}
+      <GoogleAnalytics gaId="G-QCJK8873RS" />
+      <Footer />
     </section>
   );
 }

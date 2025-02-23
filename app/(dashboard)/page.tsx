@@ -4,6 +4,8 @@ import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { ChessBoard } from "@/components/chess-board";
 import { Sparkles, Crown, BadgePoundSterling, FastForward } from "lucide-react";
+import { ReviewSlider } from "@/components/ReviewSlider";
+import Head from "next/head";
 
 export default function Page() {
   const [position, setPosition] = useState("start");
@@ -11,7 +13,22 @@ export default function Page() {
   const [typingClass, setTypingClass] = useState("");
   const [strat, setStrat] = useState("")
 
+  const sampleReviews = [
+    { id: 1, name: "Hikaru", text: "I literally don't care.", image: "/avatars/alice.jpg" },
+    { id: 2, name: "Gotham", text: "The Roooooooooook!", image: "/avatars/bob.jpg" },
+    { id: 3, name: "Charlie", text: "Really well-made. The animations are stunning!", image: "/avatars/charlie.jpg" },
+    { id: 4, name: "Vlad", text: "That's very interesting.", image: "/avatars/david.jpg" },
+    { id: 5, name: "Eve", text: "Playing without this is kinda boring now.", image: "/avatars/eve.jpg" },
+  ];
+
   return (
+    <>
+    <Head>
+      <title>Chess Animations Extension</title>
+      <meta name="description" content="Add stunning animations to Chess.com when playing your favorite openings!" />
+      <meta property="og:image" content="/preview-image.jpg" />
+    </Head>
+
     <div className="min-h-screen bg-[#2F2F2F] text-white">
       <style jsx>{`
         @keyframes typing {
@@ -39,31 +56,42 @@ export default function Page() {
             Games to Life
           </h1>
           <p className="text-lg text-gray-300 max-w-xl">
-            Experience chess like never before with stunning animations for your favorite openings. Transform ordinary
-            moves into spectacular visual displays.
+            Add some fun to your chess games with animations and voice lines announcing your openings.
           </p>
-          <div className="grid grid-cols-2 gap-6 max-w-md mt-8">
-            <AnimationCard title="Queen's Gambit" opening="queens-gambit" setPosition={setPosition} setNext={setNextMove} setTypingClass={setTypingClass} setStrat={setStrat}/>
+          <div className="grid grid-cols-2 gap-6 ">
+            <AnimationCard title="Queen's Gambit" opening="queen" setPosition={setPosition} setNext={setNextMove} setTypingClass={setTypingClass} setStrat={setStrat}/>
             <AnimationCard title="London System" opening="london" setPosition={setPosition} setNext={setNextMove} setTypingClass={setTypingClass} setStrat={setStrat}/>
           </div>
-          {/* Typing Effect */}
           <p className="text-2xl text-white max-w-xl">
             <span
               className={typingClass}
               style={{
-                "--text-length": `${nextMove.length + 10}ch`, // Set width dynamically
+                "--text-length": `${nextMove.length + 10}ch`, 
               } as React.CSSProperties}
             >
                 {nextMove}
             </span>
             <FastForward className="w-10 h-10 text-[#99BC59] inline-block -mt-6 ml-2" />
           </p>
+          <div className="bg-[#272727] text-white p-6 text-center">
+            <h3 className="text-2xl font-bold">Premium Animations</h3>
+            <p className="text-lg text-gray-300 mt-4 max-w-2xl mx-auto">
+              Unlock premium animations for your favorite openings for just <span className="text-[#99BC59] font-semibold">$4.99</span>.
+            </p>
+            <a href="/premium">
+              <Button className="mt-6 bg-[#99BC59] hover:bg-[#8CAF4D] text-white text-lg rounded-lg">
+                Learn More About Premium
+              </Button>
+            </a>
+          </div>
         </div>
         <div className="w-full lg:w-1/2 aspect-square">
           <ChessBoard position={position} opening={strat}/>
         </div>
       </main>
+      <ReviewSlider reviews={sampleReviews} />
     </div>
+    </>
   );
 }
 
@@ -73,7 +101,7 @@ function AnimationCard({ title, opening, setPosition, setNext, setTypingClass, s
   let nextMove = "";
 
   switch (opening) {
-    case "queens-gambit":
+    case "queen":
       IconComponent = <Crown className="w-5 h-5 text-[#99BC59]" />;
       startingPosition = "rnbqkbnr/ppp1pppp/8/3p4/3P4/8/PPP1PPPP/RNBQKBNR w KQkq d6 0 1";
       nextMove = "Now Play Pawn C4";

@@ -2,7 +2,7 @@
 
 import { useState, useEffect, useCallback, useRef } from "react";
 import { Chessboard } from "react-chessboard";
-import { Chess } from "chess.js";
+import { Chess, Square } from "chess.js";
 
 interface BoardProps {
   position: string; // FEN string from parent component
@@ -43,7 +43,7 @@ export function ChessBoard({ position, opening }: BoardProps) {
   }, []);
 
   const onDrop = useCallback(
-    (sourceSquare: string, targetSquare: string) => {
+    (sourceSquare: Square, targetSquare: Square) => {
       try {
         const move = game.move({
           from: sourceSquare,
@@ -63,7 +63,7 @@ export function ChessBoard({ position, opening }: BoardProps) {
                 case "queen":
                     console.log(game.fen())
                   if (game.fen() === "rnbqkbnr/ppp1pppp/8/3p4/2PP4/8/PP2PPPP/RNBQKBNR b KQkq c3 0 1") {
-                    setAnimation("/assets/queen.mp4");
+                    setAnimation("/assets/alien.mp4");
                   }
                   break;
                 case "alien":
