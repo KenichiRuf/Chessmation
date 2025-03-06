@@ -50,7 +50,7 @@ export function ReviewSlider({ reviews }: ReviewSliderProps) {
   useEffect(() => {
     const interval = setInterval(slideToNext, 5000);
     return () => clearInterval(interval);
-  }, [currentIndex]);
+  }, []);
 
   return (
     <div className="relative w-full max-w-5xl mx-auto px-4 mb-8">

@@ -53,7 +53,8 @@ export default async function PricingPage() {
           price={299}
           interval="month"
           features={premiumFeatures}
-          priceId="price_1QvmESC50NlhlYOfSNVeyI8y" 
+          //priceId="price_1QvmESC50NlhlYOfSNVeyI8y" 
+          priceId="price_1Qzk8NC50NlhlYOfAv74eZ3T"
         />
       </div>
       <AnimationSlider animations={animations} title="Sneak Peak:"/>
