@@ -1,6 +1,6 @@
 import { desc, and, eq, isNull } from 'drizzle-orm';
 import { db } from './drizzle';
-import { activityLogs, teamMembers, teams, users } from './schema';
+import { activityLogs, SubscriptionStatus, teamMembers, teams, users } from './schema';
 import { cookies } from 'next/headers';
 import { verifyToken } from '@/lib/auth/session';
 
@@ -52,7 +52,7 @@ export async function updateTeamSubscription(
     stripeSubscriptionId: string | null;
     stripeProductId: string | null;
     planName: string | null;
-    subscriptionStatus: string;
+    subscriptionStatus: SubscriptionStatus;
   }
 ) {
   await db

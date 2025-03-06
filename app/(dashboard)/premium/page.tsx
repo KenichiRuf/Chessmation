@@ -50,7 +50,8 @@ export default async function PricingPage() {
         />
         <PricingCard
           name="Premium"
-          price={499} // Represented in cents ($4.99)
+          price={299}
+          interval="month"
           features={premiumFeatures}
           priceId="price_1QvmESC50NlhlYOfSNVeyI8y" 
         />
@@ -65,17 +66,19 @@ function PricingCard({
   price,
   features,
   priceId,
+  interval,
 }: {
   name: string;
   price: number;
   features: Feature[];
   priceId?: string;
+  interval?: string;
 }) {
   return (
     <div className="pt-6 bg-[#1e1e1e] p-6 rounded-lg shadow-lg border border-[#99BC59] flex flex-col h-full">
       <h2 className="text-2xl font-medium text-[#99BC59] mb-2">{name}</h2>
-      <p className="text-4xl font-medium text-white mb-6">
-        {price === 0 ? 'Free' : `$${(price / 100).toFixed(2)}`}
+      <p className="text-3xl font-medium text-white mb-6">
+        {price === 0 ? 'Free' : `$${(price / 100).toFixed(2)} / ${interval}`}
       </p>
       <ul className="space-y-4 text-left">
         {features.map((feature, index) => (
