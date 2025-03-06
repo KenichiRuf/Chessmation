@@ -9,15 +9,7 @@ export async function middleware(request: NextRequest) {
   const sessionCookie = request.cookies.get('session');
   const isProtectedRoute = pathname.startsWith(protectedRoutes);
 
-  // Debug logging
-  console.log('Current path:', pathname);
-  console.log('Session cookie present:', !!sessionCookie);
-  if (sessionCookie) {
-    console.log('Session cookie value:', sessionCookie.value.substring(0, 20) + '...');
-  }
-
   if (isProtectedRoute && !sessionCookie) {
-    console.log('Redirecting to sign-in: No session cookie found');
     return NextResponse.redirect(new URL('/sign-in', request.url));
   }
 
@@ -26,10 +18,6 @@ export async function middleware(request: NextRequest) {
   if (sessionCookie) {
     try {
       const parsed = await verifyToken(sessionCookie.value);
-      console.log('Session verified successfully:', {
-        userId: parsed.user?.id,
-        expires: parsed.expires
-      });
       
       const expiresInOneDay = new Date(Date.now() + 24 * 60 * 60 * 1000);
 
@@ -45,7 +33,6 @@ export async function middleware(request: NextRequest) {
         expires: expiresInOneDay,
       });
     } catch (error) {
-      console.error('Error verifying session:', error);
       res.cookies.delete('session');
       if (isProtectedRoute) {
         return NextResponse.redirect(new URL('/sign-in', request.url));
