@@ -3,7 +3,7 @@
 import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { ChessBoard } from "@/components/chess-board";
-import { Sparkles, Crown, BadgePoundSterling, FastForward } from "lucide-react";
+import { Crown, BadgePoundSterling, FastForward } from "lucide-react";
 import { ReviewSlider } from "@/components/ReviewSlider";
 import Head from "next/head";
 
@@ -11,14 +11,13 @@ export default function Page() {
   const [position, setPosition] = useState("start");
   const [nextMove, setNextMove] = useState("");
   const [typingClass, setTypingClass] = useState("");
-  const [strat, setStrat] = useState("")
 
   const sampleReviews = [
-    { id: 1, name: "Hikaru", text: "I literally don't care.", image: "/avatars/alice.jpg" },
-    { id: 2, name: "Gotham", text: "The Roooooooooook!", image: "/avatars/bob.jpg" },
-    { id: 3, name: "Charlie", text: "Really well-made. The animations are stunning!", image: "/avatars/charlie.jpg" },
-    { id: 4, name: "Vlad", text: "That's very interesting.", image: "/avatars/david.jpg" },
-    { id: 5, name: "Eve", text: "Playing without this is kinda boring now.", image: "/avatars/eve.jpg" },
+    { id: 1, name: "Hikaru", text: "I literally don't care.", image: "/avatars/hikaru.png" },
+    { id: 2, name: "Gotham", text: "The Roooooooooook!", image: "/avatars/gotham.png" },
+    { id: 3, name: "Charlie", text: "Really well-made. The animations are stunning!", image: "/avatars/charlie.png" },
+    { id: 4, name: "Vlad", text: "That's very interesting.", image: "/avatars/vlad.png" },
+    { id: 5, name: "Eve", text: "Playing without this is kinda boring now.", image: "/avatars/eve.png" },
   ];
 
   return (
@@ -59,8 +58,8 @@ export default function Page() {
             Add some fun to your chess games with animations and voice lines announcing your openings.
           </p>
           <div className="grid grid-cols-2 gap-6 ">
-            <AnimationCard title="Queen's Gambit" opening="queen" setPosition={setPosition} setNext={setNextMove} setTypingClass={setTypingClass} setStrat={setStrat}/>
-            <AnimationCard title="London System" opening="london" setPosition={setPosition} setNext={setNextMove} setTypingClass={setTypingClass} setStrat={setStrat}/>
+            <AnimationCard title="Queen's Gambit" opening="queen" setPosition={setPosition} setNext={setNextMove} setTypingClass={setTypingClass}/>
+            <AnimationCard title="London System" opening="london" setPosition={setPosition} setNext={setNextMove} setTypingClass={setTypingClass}/>
           </div>
           <p className="text-2xl text-white max-w-xl">
             <span
@@ -86,7 +85,7 @@ export default function Page() {
           </div>
         </div>
         <div className="w-full lg:w-1/2 aspect-square">
-          <ChessBoard position={position} opening={strat}/>
+          <ChessBoard position={position}/>
         </div>
       </main>
       <ReviewSlider reviews={sampleReviews} />
@@ -95,7 +94,7 @@ export default function Page() {
   );
 }
 
-function AnimationCard({ title, opening, setPosition, setNext, setTypingClass, setStrat }: { title: string; opening: string; setPosition: (pos: string) => void; setNext: (pos: string) => void; setTypingClass: (pos: string) => void; setStrat: (pos: string) => void }) {
+function AnimationCard({ title, opening, setPosition, setNext, setTypingClass }: { title: string; opening: string; setPosition: (pos: string) => void; setNext: (pos: string) => void; setTypingClass: (pos: string) => void }) {
   let IconComponent
   let startingPosition: string = "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1"; // Default position
   let nextMove = "";
@@ -103,12 +102,12 @@ function AnimationCard({ title, opening, setPosition, setNext, setTypingClass, s
   switch (opening) {
     case "queen":
       IconComponent = <Crown className="w-5 h-5 text-[#99BC59]" />;
-      startingPosition = "rnbqkbnr/ppp1pppp/8/3p4/3P4/8/PPP1PPPP/RNBQKBNR w KQkq d6 0 1";
+      startingPosition = "rnbqkbnr/ppp1pppp/8/3p4/3P4/8/PPP1PPPP/RNBQKBNR w KQkq - 0 2";
       nextMove = "Now Play Pawn C4";
       break;
     case "london":
       IconComponent = <BadgePoundSterling className="w-5 h-5 text-[#99BC59]" />;
-      startingPosition = "rnbqkb1r/ppp1pppp/5n2/3p4/3P4/5N2/PPP1PPPP/RNBQKB1R w KQkq - 0 1";
+      startingPosition = "rnbqkb1r/ppp1pppp/5n2/3p4/3P4/5N2/PPP1PPPP/RNBQKB1R w KQkq - 2 3";
       nextMove = "Now Play Bishop F4";
       break;
   }
@@ -125,10 +124,8 @@ function AnimationCard({ title, opening, setPosition, setNext, setTypingClass, s
             setPosition(startingPosition);
             setNext(nextMove);
             setTypingClass("typing");
-            setStrat(opening)
           }}
-          size="lg"
-          className="bg-[#99BC59] hover:bg-[#8CAF4D] text-white font-semibold px-8"
+          className="border border-[#99BC59] text-[#99BC59] bg-[#272727] hover:bg-[#333333] text-sm px-4 py-2 rounded-full transition-colors"
         >
           Try It
         </Button>

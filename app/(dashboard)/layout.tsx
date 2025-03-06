@@ -22,9 +22,14 @@ function Header() {
   const router = useRouter();
 
   async function handleSignOut() {
-    setUser(null);
-    await signOut();
-    router.push("/");
+    try {
+      setIsMenuOpen(false); // Close dropdown
+      await signOut(); // Server-side logout
+      setUser(null); // Clear user state
+      router.push("/"); // Redirect to home
+    } catch (error) {
+      console.error("Error signing out:", error);
+    }
   }
 
   return (
@@ -58,14 +63,13 @@ function Header() {
                     <span>Dashboard</span>
                   </Link>
                 </DropdownMenuItem>
-                <form action={handleSignOut} className="w-full">
-                  <button type="submit" className="flex w-full">
-                    <DropdownMenuItem className="w-full flex-1 cursor-pointer">
-                      <LogOut className="mr-2 h-4 w-4" />
-                      <span>Sign out</span>
-                    </DropdownMenuItem>
-                  </button>
-                </form>
+                <DropdownMenuItem 
+                  className="cursor-pointer"
+                  onClick={handleSignOut}
+                >
+                  <LogOut className="mr-2 h-4 w-4" />
+                  <span>Sign out</span>
+                </DropdownMenuItem>
               </DropdownMenuContent>
             </DropdownMenu>
           ) : (
@@ -73,7 +77,7 @@ function Header() {
               asChild
               className="border border-[#99BC59] text-[#99BC59] bg-[#272727] hover:bg-[#333333] text-sm px-4 py-2 rounded-full"
             >
-              <Link href="/sign-up">Log In</Link>
+              <Link href="/sign-in">Log In</Link>
             </Button>
           )}
 

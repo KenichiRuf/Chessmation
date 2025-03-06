@@ -1,6 +1,6 @@
 import { eq } from 'drizzle-orm';
 import { db } from '@/lib/db/drizzle';
-import { users, teams, teamMembers } from '@/lib/db/schema';
+import { users, teams, teamMembers, SubscriptionStatus } from '@/lib/db/schema';
 import { setSession } from '@/lib/auth/session';
 import { NextRequest, NextResponse } from 'next/server';
 import { stripe } from '@/lib/payments/stripe';
@@ -83,7 +83,7 @@ export async function GET(request: NextRequest) {
         stripeSubscriptionId: subscriptionId,
         stripeProductId: productId,
         planName: (plan.product as Stripe.Product).name,
-        subscriptionStatus: subscription.status,
+        subscriptionStatus: subscription.status as SubscriptionStatus,
         updatedAt: new Date(),
       })
       .where(eq(teams.id, userTeam[0].teamId));

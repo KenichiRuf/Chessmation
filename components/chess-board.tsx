@@ -5,26 +5,23 @@ import { Chessboard } from "react-chessboard";
 import { Chess, Square } from "chess.js";
 
 interface BoardProps {
-  position: string; // FEN string from parent component
-  opening: string;
+  position: string;
 }
 
-export function ChessBoard({ position, opening }: BoardProps) {
+export function ChessBoard({ position }: BoardProps) {
   const [game, setGame] = useState(new Chess());
   const [boardWidth, setBoardWidth] = useState(600);
   const containerRef = useRef<HTMLDivElement>(null);
   const [animation, setAnimation] = useState("")
 
-  // ✅ Sync game state with parent `position` updates
   useEffect(() => {
     const newGame = new Chess();
     if (position !== "start") {
       newGame.load(position);
     }
     setGame(newGame);
-  }, [position]); // ✅ Runs when `position` changes
+  }, [position]);
 
-  // Handle board resizing
   useEffect(() => {
     const updateBoardSize = () => {
       if (containerRef.current) {
@@ -51,29 +48,14 @@ export function ChessBoard({ position, opening }: BoardProps) {
           promotion: "q",
         });
 
-        if (move === null) return false; // Illegal move
-        setGame(new Chess(game.fen())); // Update game state
-        if (opening) {
-            switch (opening) {
-                case "london":
-                  if (game.fen() === "rnbqkb1r/ppp1pppp/5n2/3p4/3P1B2/5N2/PPP1PPPP/RN1QKB1R b KQkq - 1 1") {
-                    setAnimation("/assets/london.mp4");
-                  }
-                  break;
-                case "queen":
-                    console.log(game.fen())
-                  if (game.fen() === "rnbqkbnr/ppp1pppp/8/3p4/2PP4/8/PP2PPPP/RNBQKBNR b KQkq c3 0 1") {
-                    setAnimation("/assets/alien.mp4");
-                  }
-                  break;
-                case "alien":
-                    console.log(game.fen())
-                  if (game.fen() === "rnbqkb1r/pp2pppp/2p2n2/8/3PN3/8/PPP2PPP/R1BQKBNR w KQkq - 0 1") {
-                    setAnimation("/assets/alien.mp4");
-                  }
-                  break;
-              }
-              
+        if (move === null) return false; 
+        setGame(new Chess(game.fen())); 
+        console.log(game.fen());
+        if (game.fen() === "rnbqkb1r/ppp1pppp/5n2/3p4/3P1B2/5N2/PPP1PPPP/RN1QKB1R b KQkq - 3 3") {
+          setAnimation("/assets/london.webm");
+        }
+        if (game.fen() === "rnbqkbnr/ppp1pppp/8/3p4/2PP4/8/PP2PPPP/RNBQKBNR b KQkq - 0 2") {
+          setAnimation("/assets/queen.webm");
         }
         return true;
       } catch (error) {
@@ -84,30 +66,41 @@ export function ChessBoard({ position, opening }: BoardProps) {
   );
 
   return (
-    <div
-      ref={containerRef}
-      className="w-full h-full aspect-square bg-[#2F2F2F] p-4 rounded-lg shadow-xl relative overflow-hidden"
-    >
-      {boardWidth > 0 && (
-        <Chessboard
-          position={game.fen()} // ✅ Now updates correctly!
-          onPieceDrop={onDrop}
-          customDarkSquareStyle={{ backgroundColor: "#99BC59" }}
-          customLightSquareStyle={{ backgroundColor: "#F3F3F3" }}
-        />
-      )}
-        {animation && (
-        <div className="absolute inset-0 flex items-center justify-center z-50">
-            <video 
-            src={animation} 
-            autoPlay 
-            muted 
-            className="w-full h-auto"
-            onEnded={() => setAnimation("")} // Remove video when finished
-            />
-        </div>
+    <div className="w-full flex flex-col items-center gap-4">
+      <div
+        ref={containerRef}
+        className="w-full h-full aspect-square bg-[#2F2F2F] p-4 rounded-lg shadow-xl relative overflow-hidden"
+      >
+        {boardWidth > 0 && (
+          <Chessboard
+            position={game.fen()}
+            onPieceDrop={onDrop}
+            customDarkSquareStyle={{ backgroundColor: "#99BC59" }}
+            customLightSquareStyle={{ backgroundColor: "#F3F3F3" }}
+          />
         )}
-      <div className="absolute inset-0 bg-gradient-to-r from-transparent via-[#99BC59] to-transparent opacity-10 animate-gradient pointer-events-none" />
+        {animation && (
+          <div className="absolute inset-0 flex items-center justify-center z-[100] pointer-events-none">
+            <video 
+                src={animation} 
+                className="w-[80%] h-auto"
+                autoPlay
+                playsInline
+                onEnded={() => setAnimation("")}
+            />
+          </div>
+        )}
+        <div className="absolute inset-0 bg-gradient-to-r from-transparent via-[#99BC59] to-transparent opacity-10 animate-gradient pointer-events-none" />
+      </div>
+      <button 
+        onClick={() => {
+          const newGame = new Chess();
+          setGame(newGame);
+        }}
+        className="border border-[#99BC59] text-[#99BC59] bg-[#272727] hover:bg-[#333333] text-sm px-4 py-2 rounded-full transition-colors"
+      >
+        Reset Board
+      </button>
     </div>
   );
 }

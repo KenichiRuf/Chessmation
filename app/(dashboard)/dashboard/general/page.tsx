@@ -37,28 +37,26 @@ export default function GeneralPage() {
 
   return (
     <section className="flex-1 p-4 lg:p-8">
-      <h1 className="text-lg lg:text-2xl font-medium text-gray-900 mb-6">
-        General Settings
+      <h1 className="text-lg lg:text-2xl font-medium text-white mb-6">
+        Account Information
       </h1>
 
-      <Card>
-        <CardHeader>
-          <CardTitle>Account Information</CardTitle>
-        </CardHeader>
+      <Card className="bg-[#272727] border-gray-700">
         <CardContent>
-          <form className="space-y-4" onSubmit={handleSubmit}>
+          <form className="space-y-4 pt-8 pb-4" onSubmit={handleSubmit}>
             <div>
-              <Label htmlFor="name">Name</Label>
+              <Label htmlFor="name" className="text-white">Name</Label>
               <Input
                 id="name"
                 name="name"
                 placeholder="Enter your name"
                 defaultValue={user?.name || ''}
                 required
+                className="bg-[#3A3A3A] border-gray-600 text-white placeholder-gray-400"
               />
             </div>
             <div>
-              <Label htmlFor="email">Email</Label>
+              <Label htmlFor="email" className="text-white">Email</Label>
               <Input
                 id="email"
                 name="email"
@@ -66,6 +64,7 @@ export default function GeneralPage() {
                 placeholder="Enter your email"
                 defaultValue={user?.email || ''}
                 required
+                className="bg-[#3A3A3A] border-gray-600 text-white placeholder-gray-400"
               />
             </div>
             {state.error && (
@@ -76,12 +75,12 @@ export default function GeneralPage() {
             )}
             <Button
               type="submit"
-              className="bg-orange-500 hover:bg-orange-600 text-white"
+              className="bg-[#99BC59] hover:bg-[#8CAF4D] text-white"
               disabled={isPending}
             >
               {isPending ? (
                 <>
-                  <Loader2 className="mr-2 h-4 w-4" />
+                  <Loader2 className="mr-2 h-4 w-4 animate-spin" />
                   Saving...
                 </>
               ) : (

@@ -8,6 +8,15 @@ import {
 } from 'drizzle-orm/pg-core';
 import { relations } from 'drizzle-orm';
 
+export const SubscriptionStatus = {
+  ACTIVE: 'active',
+  TRIALING: 'trialing',
+  CANCELED: 'canceled',
+  UNPAID: 'unpaid'
+} as const;
+
+export type SubscriptionStatus = typeof SubscriptionStatus[keyof typeof SubscriptionStatus];
+
 export const users = pgTable('users', {
   id: serial('id').primaryKey(),
   name: varchar('name', { length: 100 }),
@@ -28,7 +37,7 @@ export const teams = pgTable('teams', {
   stripeSubscriptionId: text('stripe_subscription_id').unique(),
   stripeProductId: text('stripe_product_id'),
   planName: varchar('plan_name', { length: 50 }),
-  subscriptionStatus: varchar('subscription_status', { length: 20 }),
+  subscriptionStatus: varchar('subscription_status', { length: 20 }).$type<SubscriptionStatus>(),
 });
 
 export const teamMembers = pgTable('team_members', {
