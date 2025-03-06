@@ -37,12 +37,12 @@ export default function DashboardLayout({
         </Button>
       </div>
 
-      <div className="flex flex-1 overflow-hidden h-full">
+      <div className="flex flex-1 overflow-hidden h-full relative">
         {/* Sidebar */}
         <aside
           className={`w-64 bg-[#272727] lg:bg-[#2F2F2F] border-r border-gray-700 lg:block ${
             isSidebarOpen ? 'block' : 'hidden'
-          } lg:relative absolute inset-y-0 left-0 z-40 transform transition-transform duration-300 ease-in-out lg:translate-x-0 ${
+          } lg:relative fixed inset-y-0 left-0 z-30 transform transition-transform duration-300 ease-in-out lg:translate-x-0 ${
             isSidebarOpen ? 'translate-x-0' : '-translate-x-full'
           }`}
         >
@@ -65,7 +65,17 @@ export default function DashboardLayout({
         </aside>
 
         {/* Main content */}
-        <main className="flex-1 overflow-y-auto p-0 lg:p-4 text-white">{children}</main>
+        <main className="flex-1 overflow-y-auto p-0 lg:p-4 text-white relative z-10">
+          {children}
+        </main>
+
+        {/* Overlay for mobile
+        {isSidebarOpen && (
+          <div 
+            className="fixed inset-0 bg-black bg-opacity-50 z-20 lg:hidden"
+            onClick={() => setIsSidebarOpen(false)}
+          />
+        )} */}
       </div>
     </div>
   );

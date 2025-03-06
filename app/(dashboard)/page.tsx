@@ -75,7 +75,7 @@ export default function Page() {
           <div className="bg-[#272727] text-white p-6 text-center">
             <h3 className="text-2xl font-bold">Premium Animations</h3>
             <p className="text-lg text-gray-300 mt-4 max-w-2xl mx-auto">
-              Unlock premium animations for your favorite openings for just <span className="text-[#99BC59] font-semibold">$4.99</span>.
+              Unlock premium animations for your favorite openings for just <span className="text-[#99BC59] font-semibold">$2.99</span>.
             </p>
             <a href="/premium">
               <Button className="mt-6 bg-[#99BC59] hover:bg-[#8CAF4D] text-white text-lg rounded-lg">
