@@ -23,10 +23,10 @@ function Header() {
 
   async function handleSignOut() {
     try {
-      setIsMenuOpen(false); // Close dropdown
-      await signOut(); // Server-side logout
-      setUser(null); // Clear user state
-      router.push("/"); // Redirect to home
+      setIsMenuOpen(false); 
+      await signOut(); 
+      setUser(null); 
+      router.push("/"); 
     } catch (error) {
       console.error("Error signing out:", error);
     }
@@ -35,13 +35,11 @@ function Header() {
   return (
     <header className="bg-[#272727] py-4">
       <div className="container mx-auto flex justify-between items-center px-4">
-        {/* Logo and Brand Name */}
         <Link href="/" className="flex items-center gap-2">
-          <Sparkles className="w-6 h-6 text-[#99BC59]" />
+          <img src="/assets/chessmation.png" alt="Chessmation Logo" className="w-12 h-12"/>
           <span className="text-xl font-bold text-white">Chessmation</span>
         </Link>
 
-        {/* Right Side - User Authentication */}
         <div className="flex items-center space-x-4">
           {user ? (
             <DropdownMenu open={isMenuOpen} onOpenChange={setIsMenuOpen}>
@@ -81,7 +79,6 @@ function Header() {
             </Button>
           )}
 
-          {/* Add to Chrome Button */}
           <Button className="bg-[#99BC59] hover:bg-[#8CAF4D] text-white">
             Add to Chrome
           </Button>
