@@ -105,7 +105,7 @@ export function Login({ mode = 'signin' }: { mode?: 'signin' | 'signup' }) {
             </div>
             <div className="relative flex justify-center text-sm">
               <span className="px-2 bg-[#2F2F2F] text-gray-400">
-                {mode === 'signin' ? 'New to our platform?' : 'Already have an account?'}
+                {mode === 'signin' ? 'Need to create an account?' : 'Already have an account?'}
               </span>
             </div>
           </div>
