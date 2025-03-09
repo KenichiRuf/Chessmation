@@ -93,7 +93,7 @@ function Footer() {
     <footer className="bg-[#272727] py-2 mt-auto">
       <div className="container mx-auto flex flex-col md:flex-row items-center justify-between p-6">
         <Link href="/" className="flex items-center gap-2 mb-4 md:mb-0">
-          <Sparkles className="w-6 h-6 text-[#99BC59]" />
+          <img src="/assets/chessmation.png" alt="Chessmation Logo" className="w-12 h-12"/>
           <span className="text-lg font-bold text-white">Chessmation</span>
         </Link>
 
