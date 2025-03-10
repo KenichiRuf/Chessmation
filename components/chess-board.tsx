@@ -51,8 +51,8 @@ export function ChessBoard({ position }: BoardProps) {
         if (move === null) return false; 
         setGame(new Chess(game.fen())); 
         console.log(game.fen());
-        if (game.fen() === "rnbqkb1r/ppp1pppp/5n2/3p4/3P1B2/5N2/PPP1PPPP/RN1QKB1R b KQkq - 3 3") {
-          setAnimation("/assets/london.webm");
+        if (game.fen() === "r1bqkb1r/pppp1ppp/2n2n2/4p1N1/2B1P3/8/PPPP1PPP/RNBQK2R b KQkq - 5 4") {
+          setAnimation("/assets/fried-liver.webm");
         }
         if (game.fen() === "rnbqkbnr/ppp1pppp/8/3p4/2PP4/8/PP2PPPP/RNBQKBNR b KQkq - 0 2") {
           setAnimation("/assets/queen.webm");

@@ -41,7 +41,7 @@ function Header() {
         </Link>
 
         <div className="flex items-center space-x-4">
-          {user ? (
+          {/* {user ? (
             <DropdownMenu open={isMenuOpen} onOpenChange={setIsMenuOpen}>
               <DropdownMenuTrigger>
                 <Avatar className="cursor-pointer size-9">
@@ -77,7 +77,7 @@ function Header() {
             >
               <Link href="/sign-in">Log In</Link>
             </Button>
-          )}
+          )} */}
 
           <Button className="bg-[#99BC59] hover:bg-[#8CAF4D] text-white">
             Add to Chrome
