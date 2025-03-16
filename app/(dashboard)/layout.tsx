@@ -79,8 +79,10 @@ function Header() {
             </Button>
           )} */}
 
-          <Button className="bg-[#99BC59] hover:bg-[#8CAF4D] text-white">
-            Add to Chrome
+          <Button asChild className="bg-[#99BC59] hover:bg-[#8CAF4D] text-white">
+            <Link href="https://chromewebstore.google.com/detail/chessmation/njnemgbbgibklmcjefobilgbieehibgm">
+              Add to Chrome
+            </Link>
           </Button>
         </div>
       </div>
@@ -103,9 +105,11 @@ function Footer() {
           <Link href="/privacy" className="hover:text-white">Privacy</Link>
         </nav>
 
-        <Button className="bg-[#99BC59] hover:bg-[#8CAF4D] text-white mt-4 md:mt-0">
-          Add to Chrome
-        </Button>
+        <Button asChild className="bg-[#99BC59] hover:bg-[#8CAF4D] text-white">
+            <Link href="https://chromewebstore.google.com/detail/chessmation/njnemgbbgibklmcjefobilgbieehibgm">
+              Add to Chrome
+            </Link>
+          </Button>
       </div>
     </footer>
   );
