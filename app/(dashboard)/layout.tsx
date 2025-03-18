@@ -100,7 +100,6 @@ function Footer() {
         </Link>
 
         <nav className="flex gap-6 text-gray-400 text-sm">
-          <Link href="/about" className="hover:text-white">About</Link>
           <Link href="/contact" className="hover:text-white">Contact</Link>
           <Link href="/privacy" className="hover:text-white">Privacy</Link>
         </nav>
